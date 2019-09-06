@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ajax post Demo</title>
+	<script src="../js/jquery-3.4.1.js"></script>
+	<script>
+		$(function(){
+			$("#loadAjax").on("click",function(){
+				console.log('click')
+				$.ajax({
+					//type : 'GET',
+					//url : 'member_json.jsp?start=0&length=20',
+					type:'POST',
+					url : 'member_json.jsp',
+					data : {"start":0,"length":20},
+					dataType : 'json',//xml,html
+					error : function(){
+						alert("Json Load Error");
+					},
+					success : function(obj){
+						//console.log(json);
+						const itemsArray = obj.item;
+		 				
+		 				let msg = '';
+		 				
+		 				for(let i=0; i<itemsArray.length; i++){
+		 					msg += "<tr>";
+		 					
+		 					let phone = itemsArray[i].phone;
+		 					let name = itemsArray[i].name;
+		 					let regdate = itemsArray[i].regdate;
+		 					let seq = itemsArray[i].seq;
+		 					let email = itemsArray[i].email;
+		 					let id = itemsArray[i].id;
+		 					msg +="<td>" +seq+"</td>";
+		 					msg +="<td>" +name+"</td>";
+		 					msg +="<td>" +id+"</td>";
+		 					msg +="<td>" +email+"</td>";
+		 					msg +="<td>" +phone+"</td>";
+		 					msg +="<td>" +regdate+"</td>";
+		 					msg += "</tr>";
+		 				
+		 				}
+		 				$("#listMember").children().remove();
+		 				$("#listMember").html(msg);
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<table>
+	<colgroup>
+		<col width="10%" />
+		<col width="15%" />
+		<col width="15%" />
+		<col width="20%" />
+		<col width="20%" />
+		<col width="30%" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">이름</th>
+			<th scope="col">아이디</th>
+			<th scope="col">이메일</th>
+			<th scope="col">핸드폰번호</th>
+			<th scope="col">등록날짜</th>
+		</tr>
+	</thead>
+	<tbody id="listMember">
+		<tr>
+			<th>1</th>
+			<td>성영한</td>
+			<td>syh1011</td>
+			<td>syh@hbilab.org</td>
+			<td>2019/09/02</td>
+		</tr> 
+	</tbody>
+	</table>
+	<div id="sung"></div>
+	<button id="loadAjax">Ajax 불러오기</button>
+
+	<script>
+	
+	</script>
+</body>
+</html>

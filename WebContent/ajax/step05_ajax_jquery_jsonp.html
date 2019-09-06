@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ajax post Demo</title>
+	<script src=../js/jquery-3.4.1.js></script>
+	<script>
+		$(function(){
+			$.ajax({
+				type : 'GET',
+				url : 'http://www.acornacademy.co.kr/blockchain/naver_json.jsp',
+				//callback key을 입력하면 함수 이름은 내부적으로 정한다.
+				dataType : 'jsonp',
+				jsonp : 'callback',
+				success : function(json){
+					$("#divMessage").html(JSON.stringify(json));
+				}
+				
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="divMessage"></div>
+</body>
+</html>

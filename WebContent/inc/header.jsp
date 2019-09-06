@@ -1,4 +1,8 @@
+<%@page import="kr.co.kic.dev1.dto.MemberDto"%>
 <%@ page pageEncoding="UTF-8"%>
+<%
+	MemberDto memberDto = (MemberDto)session.getAttribute("member");
+%>
 <!doctype html>
 <html lang="en">
 
@@ -29,14 +33,25 @@
 				<li class="nav-item">
 					<a class="nav-link" href="/notice/list.jsp">Noitce</a>
 				</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/member/list.jsp">Member</a>
+				</li>
+					<li class="nav-item">
+					<a class="nav-link" href="/file/index.jsp">file Upload</a>
+				</li>
 
 			</ul>
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a class="nav-link" href="/member/register.jsp">Register</a>
 				</li>
+			
 				<li class="nav-item">
+					<%if(memberDto==null){ %>
 					<a class="nav-link" href="/member/login.jsp"><i class="fa fa-user"></i> Login</a>
+					<%}else{ %>
+					<a class="nav-link" href="/member/logout.jsp"><i class="fa fa-user"></i> Logout(<%=memberDto.getName() %>님 환영합니다.)</a>
+					<%} %>
 				</li>
 			</ul>
 		</div>

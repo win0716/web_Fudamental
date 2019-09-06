@@ -38,48 +38,28 @@
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="writer">작성자</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="writer" value="<%=writer %>" id="writer" placeholder="이름을 입력해 주세요">
+								<p> <%=writer %> </p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="title">제목</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name="title" value="<%=title %>" id="title" placeholder="제목을 입력해 주세요">
-								</div>
+									<p> <%=title %> </p>
+							</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="content">내용</label>
 								<div class="col-sm-10">
-									<textarea class="form-control" name="content" id="content" rows="10"  placeholder="내용을 입력해 주세요"><%=content %></textarea>
+									<p> <%=content.replaceAll("\n","<br>") %></p>
 								</div>
 							</div>
-							<input type="hidden" name="num" value="<%=num%>"/>
+							
 						</form>
 
 						<div class="text-right">
-							<a href="" id="modifyNotice" class="btn btn-outline-primary">수정</a>
-							<a href="" id="deleteNotice" class="btn btn-outline-danger">삭제</a>
 							<a href="list.jsp" class="btn btn-outline-success">리스트</a>
 						</div>
-						<script>
-							$(function(){
-								$("#modifyNotice").on('click', function(event){
-									event.preventDefault();
-									//유효성 검사
-									f.action = "modify.jsp";
-									f.submit();
-									
-								});
-								$("#deleteNotice").on('click', function(event){
-									event.preventDefault();
-									//유효성 검사 필용없음.
-									f.action = "delete.jsp";
-									f.submit();
-								});
-							});
-							
-						</script>
-
+						
 					</div>
 				</div>
 			</div>
