@@ -47,19 +47,19 @@
             <form class="form-horizontal" role="form" name="f" method="post" action="">
               <div class="form-group">
                 <label class="col-form-label" for="name">성명</label>
-                <input type="text" class="form-control" name="name" value=<%=name %> id="name" placeholder="이름을 입력해 주세요">
+                <p><%=name %></p>
               </div>
               <div class="form-group">
                 <label class="col-form-label" for="id">아이디</label>
-                <input type="text" class="form-control" name="id" value="<%=id %>" id="id" placeholder="아이디를 입력해 주세요">
+                <p><%=id %></p>
               </div>
               <div class="form-group">
                 <label for="email">이메일 주소</label>
-                <input type="email" class="form-control" name="email" value=<%=email %> id="email" placeholder="이메일 주소를 입력해주세요">
+                <p><%=email %></p>
               </div>
               <div class="form-group">
                 <label for="phone">휴대폰 번호</label>
-                <input type="tel" class="form-control" name="phone" value=<%=phone %> id="phone" placeholder="휴대폰번호를 입력해 주세요">
+                <p><%=phone %></p>
               </div>
               <%--
               <div class="form-group text-center">
@@ -75,8 +75,7 @@
                 <input type="hidden" name="page" value="<%=cPage%>"/>
             </form>
             <div class="text-right">
-				<a href="" id="modifyMember" class="btn btn-outline-primary">수정</a>
-				<a href="" id="deleteMember" class="btn btn-outline-danger">삭제</a>
+				
 				<a href="list.jsp?page=<%=cPage %>" class="btn btn-outline-success">리스트</a>
 			</div>
 			<script>

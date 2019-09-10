@@ -2,7 +2,7 @@
 <%@page import="java.io.BufferedReader"%>
 <%@page import="java.net.HttpURLConnection"%>
 <%@page import="java.net.URL"%>
-<%@ page contentType="application/json; charset=UTF-8"%>
+<%@ page contentType="application/json;charset=UTF-8"%>
 
 <%
 	String clientId = "Q35Vn7t8Afs9PZaK9ClT";//애플리케이션 클라이언트 아이디값";

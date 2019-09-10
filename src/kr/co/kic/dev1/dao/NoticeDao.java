@@ -246,5 +246,47 @@ public class NoticeDao {
 
 		return list;
 	}
+	public int getRows() {
+		int count = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 1;
+
+		try {
+
+			con = ConnLocator.getConnection();
+
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT COUNT(*) FROM notice ");
+
+			pstmt = con.prepareStatement(sql.toString());
+
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				index = 1;
+				count = rs.getInt(index);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+
+		}
+		return count;
+	}
 
 }

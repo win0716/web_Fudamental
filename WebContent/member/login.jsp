@@ -56,8 +56,34 @@
             				$("#pwd").focus();
             				return;
             			}
-            			f.submit();
+            		
+        			if($("#captcahaCode").val()==""){
+        				alert('캡차코드를 입력하세요.');
+        				$("#captcahaCode").focus();
+        				return;
+        			}
+            			$.ajax({
+            				type : 'GET',
+            				url : 'captcha/getKeyResult.jsp?key='+captchaKey+"&value="+$("#captchaCode").val(),
+            				dataType : 'json',
+            				success : function(json){
+            					console.log(json);//{result : false, responseTime: 5.85}
+            					if(json.result === true){
+            						f.submit();
+            						
+            					}else{
+									alert("캡차코드가 잘못되었습니다.");  
+									loadImage();
+            					}
+            				}
+            			
+            			});
             		});
+            		$("#refreshNumber").on("click",function(e){
+            			e.preventDefault();
+            			loadImage();
+            		});
+            		
             		var loadImage = function(){
             			$.ajax({
             				url : 'captcha/getKey.jsp',

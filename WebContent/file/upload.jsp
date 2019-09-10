@@ -7,7 +7,7 @@
 <%
 	//String name = request.getParameter("name");  =>XXXXXXXXXX
 	request.setCharacterEncoding("utf-8");
-	String path = request.getRealPath("/upload");
+	String path = request.getRealPath("/upload/files");
 	
 	Calendar c = Calendar.getInstance();
 	int year = c.get(Calendar.YEAR);

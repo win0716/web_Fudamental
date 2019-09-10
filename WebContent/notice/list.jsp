@@ -4,8 +4,59 @@
 <%@page import="kr.co.kic.dev1.dao.NoticeDao"%>
 <%@ include file="../inc/header.jsp" %>
 <%
+
+	
+	String tempPage = request.getParameter("page");
+	int cPage = 0;
+	if(tempPage == null || tempPage.length()==0){
+	cPage = 1;
+	}
+	try{
+	cPage= Integer.parseInt(tempPage);		
+	}catch(NumberFormatException e){
+	cPage = 1;
+	}
+	int length = 20;
+	int pageLength = 5;
+	int totalPage = 0;
+	int startPage = 0;
+	int endPage =0;
+	int start = (cPage-1) * length; 
+	int pageNum = 0;
+	
+
+	
+	
 	NoticeDao dao = NoticeDao.getInstance();
-	ArrayList<NoticeDto> list = dao.select(0, 100); 
+	ArrayList<NoticeDto> list = dao.select(start, length); 
+	
+	
+	
+	int totalRows = dao.getRows(); //63개
+	
+	pageNum = totalRows + (cPage -1) * (-length);
+	
+	totalPage = totalRows%length == 0 ? totalRows/length : totalRows/length + 1 ;
+	if(totalPage == 0){
+	totalPage = 1;
+	}
+	
+	int currentBlock = cPage % pageLength == 0 ? cPage/pageLength : cPage/pageLength + 1 ; 
+	
+	int totalBlock = totalPage % pageLength == 0 ? totalPage/pageLength : totalPage/pageLength +1;
+	
+	
+	startPage = 1 + (currentBlock -1 )*pageLength;
+	
+	endPage = pageLength + (currentBlock -1 )*pageLength;
+	
+	if(currentBlock == totalBlock) {
+	endPage = totalPage;
+	}
+	
+
+	
+	
 %>
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
@@ -47,7 +98,7 @@
 												
 									%>
 									<tr>
-										<th scope="row"><%=num %></th>
+										<th scope="row"><%=pageNum-- %></th>
 										<td><%=writer %></td>
 										<td><a href="view.jsp?num=<%=num%>"><%=title %></a> </td>
 										<td><%=regdate %></td>
@@ -68,21 +119,29 @@
 
 							<nav aria-label="Page navigation example">
 								<ul class="pagination pagination-lg justify-content-center">
+									
+									<%if(currentBlock !=1 ){%>
+									<li class="page-item">
+										<a class="page-link" href="javascript:util.pageLoading('<%=startPage-1%>','<%=length %>');" tabindex="-1">&laquo;</a>
+									</li>
+									<%}else{ %>
 									<li class="page-item disabled">
 										<a class="page-link" href="#" tabindex="-1">&laquo;</a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#">6</a></li>
-									<li class="page-item"><a class="page-link" href="#">7</a></li>
-									<li class="page-item"><a class="page-link" href="#">8</a></li>
-									<li class="page-item"><a class="page-link" href="#">9</a></li>
-									<li class="page-item"><a class="page-link" href="#">10</a></li>
+									</li>	
+									<%} %>
+									
+									<%for(int i=startPage; i<=endPage; i++){%>
+									<li class="page-item <%if(cPage==i){ %>active<%}%>"><a class="page-link" href="javascript:util.pageLoading('<%=i%>','<%=length %>');"><%=i %></a></li>
+									<%} %>
+									<%if(currentBlock != totalBlock){%>
 									<li class="page-item">
+										<a class="page-link" href="javascript:util.pageLoading('<%=endPage+1%>','<%=length %>');">&raquo;</a>
+									</li>	
+									<%}else{ %>
+									<li class="page-item disabled">
 										<a class="page-link" href="#">&raquo;</a>
+									</li>	
+									<%} %>	
 									</li>
 								</ul>
 							</nav>

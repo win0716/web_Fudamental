@@ -20,15 +20,13 @@
 	}catch(NumberFormatException e){
 		cPage = 1;
 	}
-	int length = 20;
+	int length = 10;
 	int pageLength = 5;
 	int totalPage = 0;
 	int startPage = 0;
 	int endPage =0;
-	
-	
 	int start = (cPage-1) * length; 
-
+	int pageNum = 0;
 
 	MemberDao dao = MemberDao.getInstance();
 	ArrayList<MemberDto> list = dao.select(start,length);
@@ -56,6 +54,16 @@
 	// currentBlock = 3 => startPage =21 , endPage = 26;
 	
 	int totalRows = dao.getRows(); //63개
+	
+	// 63 62 61 60 59 58 57 56 55 54 => page = 1
+	// 53 52 51 50 49 48 47 46 45 44 => page = 2
+	// 43....
+	// 33....
+	// 23....
+	// 13....
+	// 3 2 1						=> page = 7;
+	
+	pageNum = totalRows + (cPage -1) * (-length);
 	
 	//int temp =(true) ? (true) : (false);
 	totalPage = totalRows%length == 0 ? totalRows/length : totalRows/length + 1 ;
@@ -127,7 +135,7 @@
 									
 								%>
 									<tr>
-										<th scope="row"><%=seq %></th>
+										<th scope="row"><%=pageNum-- %></th>
 										<td><%=name %></td>
 										<td><a href="view.jsp?seq=<%=seq%>&page=<%=cPage%>"><%=id %></a></td>
 										<td><%=email %></td>
